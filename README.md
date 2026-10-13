@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Google Chrome Built-in AI](https://img.shields.io/badge/Google-Chrome%20Built--in%20AI-4285F4?logo=googlechrome&logoColor=white)](https://developer.chrome.com/docs/ai/built-in)
-[![WebMCP](https://img.shields.io/badge/Protocol-WebMCP%20v1.0-10B981)](https://github.com/Diieeggoo0/nano-webmcp)
+[![WebMCP](https://img.shields.io/badge/Protocol-WebMCP%20v1.0-10B981)](https://github.com/Diieeggoo0/NanoWebMCP)
 [![Zero Cloud Tokens](https://img.shields.io/badge/Privacy-100%25%20On--Device-emerald)](#key-features)
 [![Author](https://img.shields.io/badge/Author-@Diieeggoo0-purple)](https://github.com/Diieeggoo0)
 
@@ -61,8 +61,8 @@ Created for the **Google Web AI & Developer Community** by **Diego Peñaranda ([
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/Diieeggoo0/nano-webmcp.git
-cd nano-webmcp
+git clone https://github.com/Diieeggoo0/NanoWebMCP.git
+cd NanoWebMCP
 ```
 
 ### 2. Launch the local static server
