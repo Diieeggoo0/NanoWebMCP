@@ -163,10 +163,9 @@ export class NanoAgent {
       chosenTool = "local_privacy_vault";
       const words = userPrompt.split(" ");
       toolArgs = { operation: "save", key: "note_" + Date.now().toString().slice(-4), value: userPrompt };
-    } else if (lower.includes("calc") || lower.includes("math") || lower.includes("+") || lower.includes("*") || lower.includes("sqrt")) {
+    } else if (lower.includes("calc") || lower.includes("math") || lower.includes("+") || lower.includes("*") || lower.includes("sqrt") || lower.includes("square root")) {
       chosenTool = "math_safe_calc";
-      const mathMatch = userPrompt.match(/[\d\s+\-*/().]+/);
-      toolArgs = { expression: mathMatch ? mathMatch[0].trim() : "1024 * 768" };
+      toolArgs = { expression: userPrompt };
     } else if (lower.includes("inspect") || lower.includes("dom") || lower.includes("page")) {
       chosenTool = "dom_page_inspector";
       toolArgs = { selector: "h1, h2, h3, button" };
@@ -185,16 +184,18 @@ export class NanoAgent {
       onStatus?.(`Tool [${chosenTool}] returned status ${result.success ? "200 OK" : "ERROR"}. Synthesizing client response...`);
       await new Promise(r => setTimeout(r, 500));
 
-      // Synthesize response
+      // Synthesize response safely
       let synthesisText = "";
-      if (chosenTool === "system_hardware_probe") {
-        synthesisText = `**Hardware Analysis Report (100% Client-Side)**\n\n- **WebGPU Support:** ${result.data.webGpuAvailable ? "✅ Hardware Accelerated" : "⚠️ Software/Fallback"}\n- **GPU Architecture:** \`${result.data.gpuInfo}\`\n- **CPU Logical Cores:** \`${result.data.concurrencyCores}\`\n- **Memory Estimate:** \`${result.data.deviceMemoryGB} GB\`\n- **Network:** \`${result.data.onlineStatus}\`\n\n*All telemetry was extracted locally using the \`system_hardware_probe\` WebMCP tool with zero server calls.*`;
+      if (!result.success) {
+        synthesisText = `⚠️ **WebMCP Execution Notice [${chosenTool}]**\n\nCould not execute tool safely: \`${result.error || "Unknown sandbox error"}\`.`;
+      } else if (chosenTool === "system_hardware_probe") {
+        synthesisText = `**Hardware Analysis Report (100% Client-Side)**\n\n- **WebGPU Support:** ${result.data?.webGpuAvailable ? "✅ Hardware Accelerated" : "⚠️ Software/Fallback"}\n- **GPU Architecture:** \`${result.data?.gpuInfo || "Generic"}\`\n- **CPU Logical Cores:** \`${result.data?.concurrencyCores || "N/A"}\`\n- **Memory Estimate:** \`${result.data?.deviceMemoryGB || "N/A"} GB\`\n- **Network:** \`${result.data?.onlineStatus || "Online"}\`\n\n*All telemetry was extracted locally using the \`system_hardware_probe\` WebMCP tool with zero server calls.*`;
       } else if (chosenTool === "local_privacy_vault") {
-        synthesisText = `🔒 **Private Data Vault Updated**\n\nYour data has been committed securely to local client storage:\n- **Key:** \`${result.data.key}\`\n- **Timestamp:** \`${result.data.timestamp}\`\n- **Cloud Transmission:** \`0 bytes (100% Isolated Sandbox)\``;
+        synthesisText = `🔒 **Private Data Vault Updated**\n\nYour data has been committed securely to local client storage:\n- **Key:** \`${result.data?.key}\`\n- **Timestamp:** \`${result.data?.timestamp}\`\n- **Cloud Transmission:** \`0 bytes (100% Isolated Sandbox)\``;
       } else if (chosenTool === "math_safe_calc") {
-        synthesisText = `🧮 **Calculation Result**\n\n- **Expression:** \`${result.data.expression}\`\n- **Result:** **\`${result.data.result}\`**\n- **Precision:** Float-64 Safe Sandbox`;
+        synthesisText = `🧮 **Calculation Result**\n\n- **Expression:** \`${result.data?.expression}\`\n- **Normalized:** \`${result.data?.normalized || result.data?.expression}\`\n- **Result:** **\`${result.data?.result}\`**\n- **Precision:** Float-64 Safe Sandbox`;
       } else {
-        synthesisText = `📄 **Page Inspection Complete**\n\nFound **${result.data.matchesFound}** elements matching query on \`${result.data.pageTitle}\`.`;
+        synthesisText = `📄 **Page Inspection Complete**\n\nFound **${result.data?.matchesFound || 0}** elements matching query on \`${result.data?.pageTitle || "Document"}\`.`;
       }
 
       await this._streamText(synthesisText, onToken);

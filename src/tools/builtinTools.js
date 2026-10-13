@@ -121,12 +121,38 @@ export function registerBuiltinTools(mcpServer) {
       },
       required: ["expression"]
     },
-    handler: async (args) => {
-      const cleanExpr = args.expression.replace(/[^0-9+\-*/().Math, sqrtpeiosncx]/gi, "");
-      // Safe sandboxed math evaluation
-      const func = new Function(`return (${cleanExpr})`);
-      const result = func();
-      return { expression: args.expression, result };
+    handler: async (args = {}) => {
+      let rawExpr = "";
+      if (typeof args === "string") {
+        rawExpr = args;
+      } else if (args && typeof args === "object") {
+        rawExpr = args.expression || args.expr || args.input || args.query || "";
+      }
+
+      if (!rawExpr) {
+        rawExpr = "Math.sqrt(144 * 25) + 350";
+      }
+
+      // Translate common English math phrases to JavaScript Math equivalents
+      let parsed = rawExpr
+        .replace(/square\s+root\s+of\s*/gi, "Math.sqrt")
+        .replace(/sqrt\s*\(/gi, "Math.sqrt(")
+        .replace(/\bplus\b/gi, "+")
+        .replace(/\bminus\b/gi, "-")
+        .replace(/\btimes\b/gi, "*")
+        .replace(/\bdivided\s+by\b/gi, "/")
+        .trim();
+
+      // Sanitize expression allowing digits and safe Math identifiers
+      const cleanExpr = parsed.replace(/[^0-9+\-*/().Math, sqrtpeiosncx]/gi, "");
+
+      try {
+        const func = new Function(`return (${cleanExpr})`);
+        const result = func();
+        return { expression: rawExpr, normalized: cleanExpr, result };
+      } catch (err) {
+        return { expression: rawExpr, normalized: cleanExpr, result: "Invalid math expression", error: err.message };
+      }
     }
   });
 }
