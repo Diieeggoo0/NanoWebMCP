@@ -1,0 +1,28 @@
+{
+  "name": "nano-webmcp",
+  "version": "1.0.0",
+  "description": "Client-side AI Agent & WebMCP framework running locally in Google Chrome via Built-in AI (Gemini Nano) and Prompt API.",
+  "main": "src/core/nanoAgent.js",
+  "scripts": {
+    "start": "npx serve . -p 3000",
+    "dev": "npx serve . -p 3000"
+  },
+  "keywords": [
+    "chrome-built-in-ai",
+    "gemini-nano",
+    "prompt-api",
+    "webmcp",
+    "mcp",
+    "web-ai",
+    "ai-agent",
+    "on-device-ai",
+    "client-side-ai",
+    "google-ai"
+  ],
+  "author": "Diego Peñaranda (@Diieeggoo0)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Diieeggoo0/nano-webmcp.git"
+  }
+}

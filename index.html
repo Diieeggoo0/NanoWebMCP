@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nano-WebMCP | Client-Side AI Agent by @Diieeggoo0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/ui/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="logo-badge">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">Nano-WebMCP <span class="tag">v1.0</span></h1>
+          <p class="brand-subtitle">Client-Side Agentic Engine with Chrome Built-in AI & WebMCP • by <strong>@Diieeggoo0</strong></p>
+        </div>
+      </div>
+
+      <div class="header-badges">
+        <div class="badge status-pill" id="aiStatusPill">
+          <span class="status-dot"></span>
+          <span id="aiStatusText">Detecting Chrome AI...</span>
+        </div>
+        <div class="badge privacy-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          100% Client-Side Privacy
+        </div>
+        <a href="https://github.com/Diieeggoo0/nano-webmcp" target="_blank" class="github-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Workspace Grid -->
+    <main class="workspace-grid">
+      <!-- Left Sidebar: WebMCP Tools Registry -->
+      <aside class="sidebar-panel">
+        <div class="panel-header">
+          <h3>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+            </svg>
+            Active WebMCP Tools
+          </h3>
+          <span class="tool-count" id="toolCount">4 tools</span>
+        </div>
+        <p class="panel-desc">Sandboxed tools registered through the client-side Model Context Protocol.</p>
+        
+        <div class="tools-list" id="toolsList">
+          <!-- Dynamically populated -->
+        </div>
+
+        <div class="mcp-info-box">
+          <div class="mcp-info-title">💡 How it works</div>
+          <p>The agent dynamically selects tools based on the user request, executes them client-side in the browser, and synthesizes the answer without cloud relay.</p>
+        </div>
+      </aside>
+
+      <!-- Center: Interactive Agent Chat & Telemetry -->
+      <section class="agent-panel">
+        <div class="chat-container" id="chatContainer">
+          <div class="message assistant-msg welcome-msg">
+            <div class="avatar">⚡</div>
+            <div class="content">
+              <h3>Welcome to <strong>Nano-WebMCP</strong></h3>
+              <p>I am an autonomous agent running entirely inside your browser. I use <strong>Chrome Built-in AI</strong> (Gemini Nano) and <strong>WebMCP</strong> to execute client tools with zero latency, zero cloud costs, and 100% data privacy.</p>
+              
+              <div class="quick-chips">
+                <span class="chip-label">Try quick prompts:</span>
+                <button class="chip" data-prompt="Probe my hardware, WebGPU support and CPU concurrency">🔍 Inspect Hardware & WebGPU</button>
+                <button class="chip" data-prompt="Save a private note 'Gemini Web AI Summit 2026' into my secure vault">🔒 Save to Private Vault</button>
+                <button class="chip" data-prompt="Calculate the square root of (144 * 25) plus 350">🧮 Math Safe Calc</button>
+                <button class="chip" data-prompt="Inspect the headings and structure of this web page">📄 Inspect Page DOM</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agent Thought / Activity Indicator -->
+        <div class="agent-activity" id="agentActivity" style="display: none;">
+          <div class="spinner"></div>
+          <span class="activity-text" id="activityText">Thinking...</span>
+        </div>
+
+        <!-- Prompt Input Bar -->
+        <div class="prompt-bar-container">
+          <form class="prompt-form" id="promptForm">
+            <input 
+              type="text" 
+              id="promptInput" 
+              placeholder="Ask the local agent or test a WebMCP tool..." 
+              autocomplete="off"
+            />
+            <button type="submit" id="sendBtn" class="send-btn">
+              <span>Run Agent</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </form>
+          <div class="prompt-hints">
+            <span>Powered by <strong>Chrome Built-in AI</strong> & <strong>Model Context Protocol (WebMCP)</strong></span>
+            <span>Developed by <strong>Diego Peñaranda (@Diieeggoo0)</strong></span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="src/ui/app.js"></script>
+</body>
+</html>
