@@ -195,16 +195,16 @@ function renderTools() {
           <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
             <polygon points="5 3 19 12 5 21 5 3"></polygon>
           </svg>
-          Run Test
+          <span>Run Test</span>
         </button>
         <button class="tool-btn btn-prompt" data-ask-tool="${tool.name}" title="Ask local AI to use this tool">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
           </svg>
-          Ask Agent
+          <span>Ask Agent</span>
         </button>
-        <button class="tool-btn" data-schema-tool="${tool.name}" title="View tool JSON-RPC schema">
-          { }
+        <button class="tool-btn btn-schema" data-schema-tool="${tool.name}" title="View JSON-RPC schema">
+          <span>{ }</span>
         </button>
       </div>
     `;
@@ -319,26 +319,41 @@ function appendToolCallBanner(toolName, args, result = null, durationMs = "0.00"
           <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
         </svg>
         <span>WebMCP: <strong>${toolName}</strong></span>
+        <span class="tool-latency-tag">${durationMs}ms</span>
       </div>
-      <div class="tool-banner-status">
-        <span class="status-dot" style="${isSuccess ? '' : 'background: #f43f5e; box-shadow: 0 0 8px #f43f5e;'}"></span>
-        <span>${isSuccess ? `Executed (${durationMs}ms)` : 'Failed'}</span>
+      <div class="tool-banner-controls">
+        <button class="btn-toggle-json" title="Toggle JSON output">
+          <span class="toggle-text">Show JSON</span>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <button class="btn-msg-copy btn-copy-tool" title="Copy raw JSON">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy
+        </button>
       </div>
     </div>
-    <div class="tool-banner-content">
+    <div class="tool-banner-content" style="display: none;">
       <div style="color: #64748b; margin-bottom: 4px; font-size: 0.72rem;">// Input Arguments: ${JSON.stringify(args)}</div>
       <pre style="margin: 0; white-space: pre-wrap;">${jsonStr}</pre>
     </div>
-    <div class="tool-banner-actions">
-      <button class="btn-msg-copy btn-copy-tool" style="font-size: 0.72rem;">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-        </svg>
-        Copy Output
-      </button>
-    </div>
   `;
+
+  // Toggle Collapse
+  const contentEl = banner.querySelector(".tool-banner-content");
+  const toggleBtn = banner.querySelector(".btn-toggle-json");
+  const toggleText = banner.querySelector(".toggle-text");
+
+  toggleBtn?.addEventListener("click", () => {
+    const isHidden = contentEl.style.display === "none";
+    contentEl.style.display = isHidden ? "block" : "none";
+    toggleText.innerText = isHidden ? "Hide JSON" : "Show JSON";
+    toggleBtn.classList.toggle("open", isHidden);
+  });
 
   banner.querySelector(".btn-copy-tool")?.addEventListener("click", () => {
     copyToClipboard(jsonStr, "Tool output copied!");
