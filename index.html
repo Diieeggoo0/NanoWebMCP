@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nano-WebMCP | Client-Side AI Agent by @Diieeggoo0</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Nano-WebMCP | Client-Side AI Agent Studio by @Diieeggoo0</title>
+  <meta name="description" content="Autonomous client-side AI agent studio powered by Chrome Built-in AI (Gemini Nano) and WebMCP tool calling with zero server dependencies.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="src/ui/style.css">
 </head>
 <body>
@@ -14,79 +15,165 @@
     <!-- Header -->
     <header class="app-header">
       <div class="brand">
-        <div class="logo-badge">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        <div class="logo-badge" title="NanoWebMCP Engine v2.0">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
           </svg>
         </div>
-        <div>
-          <h1 class="brand-title">Nano-WebMCP <span class="tag">v1.0</span></h1>
-          <p class="brand-subtitle">Client-Side Agentic Engine with Chrome Built-in AI & WebMCP • by <strong>@Diieeggoo0</strong></p>
+        <div class="brand-info">
+          <div class="brand-title-row">
+            <h1 class="brand-title">Nano-WebMCP</h1>
+            <span class="version-pill">v2.0 PRO</span>
+            <a href="https://github.com/Diieeggoo0" target="_blank" class="author-pill" title="View Developer GitHub Profile">@Diieeggoo0</a>
+          </div>
+          <p class="brand-subtitle">Autonomous Client-Side AI Agent • Chrome Built-in AI & WebMCP</p>
         </div>
       </div>
 
-      <div class="header-badges">
-        <div class="badge status-pill" id="aiStatusPill">
+      <!-- Action Buttons & Badges -->
+      <div class="header-actions">
+        <button class="interactive-pill" id="aiStatusPill" title="Click to view AI engine diagnostics and flags">
           <span class="status-dot"></span>
-          <span id="aiStatusText">Detecting Chrome AI...</span>
-        </div>
-        <div class="badge privacy-badge">
+          <span id="aiStatusText">Detecting Engine...</span>
+        </button>
+
+        <button class="interactive-pill" id="privacyPill" title="Click to view Privacy & Security Sandbox architecture">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
           </svg>
-          100% Client-Side Privacy
-        </div>
-        <a href="https://github.com/Diieeggoo0/NanoWebMCP" target="_blank" class="github-link">
+          <span>100% Client-Side</span>
+        </button>
+
+        <button class="btn-action btn-bench" id="benchBtn" title="Run instant automated latency benchmark on all registered tools">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          <span>Run Benchmark</span>
+        </button>
+
+        <button class="btn-action" id="schemaBtn" title="Inspect JSON-RPC 2.0 WebMCP tools specification">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
+          </svg>
+          <span>Schema</span>
+        </button>
+
+        <button class="btn-action" id="clearChatBtn" title="Clear conversation history">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+          <span>Clear</span>
+        </button>
+
+        <a href="https://github.com/Diieeggoo0/NanoWebMCP" target="_blank" rel="noopener noreferrer" class="btn-action btn-github" title="View Source on GitHub">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
           </svg>
-          GitHub
+          <span>GitHub</span>
         </a>
       </div>
     </header>
 
-    <!-- Main Workspace Grid -->
+    <!-- Mobile Segmented Navigation Tabs (< 900px) -->
+    <nav class="mobile-nav-tabs" aria-label="Mobile Navigation">
+      <button class="tab-btn active" data-tab="agent" id="tabAgent">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        Agent Studio
+      </button>
+      <button class="tab-btn" data-tab="tools" id="tabTools">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+        </svg>
+        WebMCP Tools (<span id="mobileToolCount">4</span>)
+      </button>
+    </nav>
+
+    <!-- Main Workspace -->
     <main class="workspace-grid">
       <!-- Left Sidebar: WebMCP Tools Registry -->
-      <aside class="sidebar-panel">
-        <div class="panel-header">
-          <h3>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
-            </svg>
-            Active WebMCP Tools
-          </h3>
-          <span class="tool-count" id="toolCount">4 tools</span>
-        </div>
-        <p class="panel-desc">Sandboxed tools registered through the client-side Model Context Protocol.</p>
-        
-        <div class="tools-list" id="toolsList">
-          <!-- Dynamically populated -->
+      <aside class="sidebar-panel" id="sidebarPanel">
+        <div class="panel-header-sticky">
+          <div class="panel-title-row">
+            <h3>
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+              </svg>
+              Active WebMCP Tools
+            </h3>
+            <span class="tool-count-badge" id="toolCount">4 tools</span>
+          </div>
+          <p class="panel-desc">Client-side tools registered in Model Context Protocol. Each can be tested individually or invoked dynamically by the agent.</p>
         </div>
 
-        <div class="mcp-info-box">
-          <div class="mcp-info-title">💡 How it works</div>
-          <p>The agent dynamically selects tools based on the user request, executes them client-side in the browser, and synthesizes the answer without cloud relay.</p>
+        <!-- Scrollable tools list -->
+        <div class="tools-scroll-area" id="toolsList">
+          <!-- Dynamically populated by app.js -->
+        </div>
+
+        <!-- Sidebar Telemetry Footer -->
+        <div class="sidebar-footer">
+          <div class="telemetry-row">
+            <span class="telemetry-label">⚡ Benchmark Avg:</span>
+            <span class="telemetry-val" id="telemetryLatency">&lt; 1.5ms</span>
+          </div>
+          <div class="telemetry-row">
+            <span class="telemetry-label">🤖 Active Engine:</span>
+            <span class="telemetry-val" id="telemetryEngine">Chrome AI / Nano</span>
+          </div>
+          <div class="telemetry-row">
+            <span class="telemetry-label">🛡️ Sandboxing:</span>
+            <span class="telemetry-val" style="color: var(--accent-emerald);">100% Client-Side</span>
+          </div>
+          <div class="telemetry-row">
+            <span class="telemetry-label">☁️ Cloud Relay:</span>
+            <span class="telemetry-val" style="color: var(--accent-emerald);">0% (Zero Cloud)</span>
+          </div>
         </div>
       </aside>
 
       <!-- Center: Interactive Agent Chat & Telemetry -->
-      <section class="agent-panel">
+      <section class="agent-panel active-tab" id="agentPanel">
         <div class="chat-container" id="chatContainer">
-          <div class="message assistant-msg welcome-msg">
-            <div class="avatar">⚡</div>
-            <div class="content">
-              <h3>Welcome to <strong>Nano-WebMCP</strong></h3>
-              <p>I am an autonomous agent running entirely inside your browser. I use <strong>Chrome Built-in AI</strong> (Gemini Nano) and <strong>WebMCP</strong> to execute client tools with zero latency, zero cloud costs, and 100% data privacy.</p>
-              
-              <div class="quick-chips">
-                <span class="chip-label">Try quick prompts:</span>
-                <button class="chip" data-prompt="Probe my hardware, WebGPU support and CPU concurrency">🔍 Inspect Hardware & WebGPU</button>
-                <button class="chip" data-prompt="Save a private note 'Gemini Web AI Summit 2026' into my secure vault">🔒 Save to Private Vault</button>
-                <button class="chip" data-prompt="Calculate the square root of (144 * 25) plus 350">🧮 Math Safe Calc</button>
-                <button class="chip" data-prompt="Inspect the headings and structure of this web page">📄 Inspect Page DOM</button>
-              </div>
+          <!-- Welcome Hero -->
+          <div class="welcome-hero">
+            <div class="hero-header">
+              <div class="logo-badge" style="width: 32px; height: 32px;">⚡</div>
+              <h2 class="hero-title">Nano-WebMCP Agentic Studio</h2>
+            </div>
+
+            <div class="hero-badges-row">
+              <span class="hero-pill" style="color: var(--accent-google-blue); border-color: rgba(66, 133, 244, 0.3);">Chrome Built-in AI (Gemini Nano)</span>
+              <span class="hero-pill" style="color: var(--accent-cyan); border-color: rgba(6, 182, 212, 0.3);">WebMCP Protocol</span>
+              <span class="hero-pill" style="color: var(--accent-emerald); border-color: rgba(16, 185, 129, 0.3);">100% Local Privacy</span>
+              <span class="hero-pill" style="color: var(--accent-violet); border-color: rgba(139, 92, 246, 0.3);">Universal Mobile & Desktop</span>
+            </div>
+
+            <p class="hero-desc">
+              Experience autonomous agentic tool-calling directly in your browser without backend servers, cloud token costs, or privacy leaks. The agent inspects hardware, saves private vault records, executes math computations, and analyzes DOM elements client-side.
+            </p>
+
+            <div class="hero-chips-title">Instant Prompts & Tests:</div>
+            <div class="quick-chips-grid">
+              <button class="chip" data-prompt="Probe my hardware, WebGPU support, CPU concurrency and memory">
+                🔍 Probe Hardware & WebGPU
+              </button>
+              <button class="chip" data-prompt="Save a private note 'Gemini Web AI Summit 2026' into my secure vault">
+                🔒 Save Note to Local Vault
+              </button>
+              <button class="chip" data-prompt="Calculate the square root of (144 * 25) plus 350 safely">
+                🧮 Math Safe Calc
+              </button>
+              <button class="chip" data-prompt="Inspect the headings and interactive structure of this web page">
+                📄 Inspect Page DOM Structure
+              </button>
+              <button class="chip" id="heroBenchChip" data-bench="true" style="border-color: rgba(66, 133, 244, 0.4); color: #60a5fa;">
+                ⚡ Run All Tools Benchmark
+              </button>
             </div>
           </div>
         </div>
@@ -103,7 +190,7 @@
             <input 
               type="text" 
               id="promptInput" 
-              placeholder="Ask the local agent or test a WebMCP tool..." 
+              placeholder="Ask the local agent or test a WebMCP tool (e.g. 'probe my gpu and cores')..." 
               autocomplete="off"
             />
             <button type="submit" id="sendBtn" class="send-btn">
@@ -114,13 +201,130 @@
               </svg>
             </button>
           </form>
-          <div class="prompt-hints">
-            <span>Powered by <strong>Chrome Built-in AI</strong> & <strong>Model Context Protocol (WebMCP)</strong></span>
-            <span>Developed by <strong>Diego Peñaranda (@Diieeggoo0)</strong></span>
+
+          <div class="prompt-footer-row">
+            <span>Engine: <strong>Chrome Gemini Nano</strong> / <strong>WebEngine v2.0 Simulation</strong></span>
+            <span>Developed by <strong>Diego Peñaranda (<a href="https://github.com/Diieeggoo0" target="_blank" style="color: var(--accent-emerald); text-decoration: none;">@Diieeggoo0</a>)</strong></span>
           </div>
         </div>
       </section>
     </main>
+
+    <!-- Diagnostics & Engine Switcher Modal -->
+    <div class="modal-overlay" id="diagnosticsModal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+            Engine Diagnostics & Selector
+          </div>
+          <button class="modal-close" id="closeDiagModal" aria-label="Close modal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Nano-WebMCP intelligently detects your browser's on-device AI capabilities and runs in universal simulation mode on mobile or non-Canary browsers.
+          </p>
+
+          <div class="modal-section-title">Manual Engine Override:</div>
+          <div class="engine-toggle-group">
+            <button class="engine-btn active" data-mode="auto" id="engineBtnAuto">Auto Detect</button>
+            <button class="engine-btn" data-mode="native" id="engineBtnNative">Chrome Gemini Nano</button>
+            <button class="engine-btn" data-mode="simulation" id="engineBtnSim">WebEngine Simulation</button>
+          </div>
+
+          <div class="modal-section-title">Current Diagnostic Status:</div>
+          <div class="code-box" id="diagDetails">
+            Probing browser capabilities...
+          </div>
+
+          <div class="modal-section-title">How to enable native Gemini Nano in Chrome:</div>
+          <ol style="margin-left: 20px; margin-bottom: 12px; font-size: 0.84rem; line-height: 1.6;">
+            <li>Use <strong>Google Chrome Canary or Dev</strong> (v127+).</li>
+            <li>Enable <code style="color: #38bdf8;">chrome://flags/#prompt-api-for-gemini-nano</code> (Enabled).</li>
+            <li>Enable <code style="color: #38bdf8;">chrome://flags/#optimization-guide-on-device-model</code> (Enabled BypassPerfRequirement).</li>
+            <li>Restart Chrome and open <code style="color: #38bdf8;">chrome://components</code>, ensuring <em>Optimization Guide On Device Model</em> is fully downloaded.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- Schema Inspector Modal -->
+    <div class="modal-overlay" id="schemaModal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+            WebMCP Protocol Schema (JSON-RPC 2.0)
+          </div>
+          <button class="modal-close" id="closeSchemaModal" aria-label="Close modal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Standardized tool definitions exposed to Gemini Nano and WebMCP clients running entirely in-browser:
+          </p>
+          <pre class="code-box" style="max-height: 380px; overflow-y: auto;"><code id="schemaContent">Generating schema...</code></pre>
+          <button class="btn-action" id="copySchemaBtn" style="margin-top: 8px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>Copy Tool Definitions JSON</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Privacy Architecture Modal -->
+    <div class="modal-overlay" id="privacyModal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            Client-Side Privacy Sandbox Architecture
+          </div>
+          <button class="modal-close" id="closePrivacyModal" aria-label="Close modal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Nano-WebMCP guarantees 100% offline-ready privacy:</strong></p>
+          <ul style="margin-left: 20px; line-height: 1.7; margin-bottom: 16px;">
+            <li><strong>Zero Server Relay:</strong> Prompts and responses never leave your device. There is no remote LLM proxy or analytics tracker.</li>
+            <li><strong>Isolated Local Vault:</strong> The <code style="color: var(--accent-emerald);">local_privacy_vault</code> tool writes to your browser's local sandbox (<code style="color: var(--accent-emerald);">localStorage</code>) with client-only scoping.</li>
+            <li><strong>Hardware Introspection:</strong> Queries are evaluated against standard W3C Web APIs (<code style="color: #38bdf8;">navigator.gpu</code>, <code style="color: #38bdf8;">navigator.hardwareConcurrency</code>) directly in the DOM thread.</li>
+            <li><strong>Zero Cost:</strong> No OpenAI, Anthropic, or external API keys needed. Free and infinite client-side reasoning.</li>
+          </ul>
+          <div class="code-box">
+            Status: SANDBOX_ISOLATED | NETWORK_EGRESS: 0 BYTES | SECURE_CONTEXT: TRUE
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
   </div>
 
   <script type="module" src="src/ui/app.js"></script>
