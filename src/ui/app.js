@@ -128,6 +128,12 @@ function setActiveTab(tabName) {
   }
 }
 
+function maybeSwitchTabToAgent() {
+  if (window.innerWidth < 900) {
+    setActiveTab("agent");
+  }
+}
+
 tabAgentBtn?.addEventListener("click", () => setActiveTab("agent"));
 tabToolsBtn?.addEventListener("click", () => setActiveTab("tools"));
 
@@ -211,13 +217,13 @@ function renderTools() {
 
     // 1. Direct Tool Runner
     card.querySelector(`[data-run-tool="${tool.name}"]`).addEventListener("click", async () => {
-      setActiveTab("agent");
+      maybeSwitchTabToAgent();
       await executeDirectTool(tool.name, meta.defaultArgs);
     });
 
     // 2. Ask Agent with Tool Preload
     card.querySelector(`[data-ask-tool="${tool.name}"]`).addEventListener("click", () => {
-      setActiveTab("agent");
+      maybeSwitchTabToAgent();
       if (promptInputEl) {
         promptInputEl.value = meta.quickPrompt;
         promptInputEl.focus();
@@ -259,16 +265,35 @@ async function executeDirectTool(toolName, args) {
 // ============================================================================
 function formatMarkdown(text) {
   if (!text) return "";
-  return text
+  
+  let formatted = text
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    .replace(/```([a-z]*)\n([\s\S]*?)```/g, '<pre class="code-box"><code>$2</code></pre>')
-    .replace(/\n\n/g, '<br><br>')
-    .replace(/\n/g, '<br>');
+    .replace(/>/g, "&gt;");
+
+  // Code blocks ```...```
+  formatted = formatted.replace(/```([a-z]*)\n([\s\S]*?)```/g, '<pre class="code-box"><code>$2</code></pre>');
+  
+  // Inline code `...`
+  formatted = formatted.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+  // Headings (e.g. ### Title)
+  formatted = formatted.replace(/^### (.*$)/gim, '<h3 class="msg-heading">$1</h3>');
+  formatted = formatted.replace(/^## (.*$)/gim, '<h2 class="msg-heading">$1</h2>');
+  formatted = formatted.replace(/^# (.*$)/gim, '<h1 class="msg-heading">$1</h1>');
+
+  // Bold & Italics
+  formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  formatted = formatted.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+  // List items (- item)
+  formatted = formatted.replace(/^\s*-\s+(.*$)/gim, '<div class="msg-list-item"><span class="list-bullet">•</span><span>$1</span></div>');
+
+  // Paragraph gaps
+  formatted = formatted.replace(/\n\n/g, '<div class="msg-gap"></div>');
+  formatted = formatted.replace(/\n/g, '<br>');
+
+  return formatted;
 }
 
 function appendMessage(role, text = "") {
@@ -367,7 +392,7 @@ function appendToolCallBanner(toolName, args, result = null, durationMs = "0.00"
 // Automated Benchmark Runner
 // ============================================================================
 async function runFullBenchmark() {
-  setActiveTab("agent");
+  maybeSwitchTabToAgent();
   showToast("Running automated WebMCP benchmark...", "⚡");
 
   if (benchBtnEl) {
@@ -501,7 +526,7 @@ promptFormEl?.addEventListener("submit", (e) => {
 // Quick Prompt Chips
 document.querySelectorAll(".chip[data-prompt]").forEach(chip => {
   chip.addEventListener("click", () => {
-    setActiveTab("agent");
+    maybeSwitchTabToAgent();
     handleSubmit(chip.getAttribute("data-prompt"));
   });
 });
